@@ -10,13 +10,21 @@ Our experiments were performed using a simple CNN architecture we call ConvNet, 
 
 ### Datasets
 We produce LSST mock data of galaxy morphology using simulated  data from the final two snapshots of Illustris TNG100, by adding noise and PSF using GalSim package. The images used can be found at [Zenodo](https://doi.org/10.5281/zenodo.5514180). 
+
 ![](images/exaample_images.png)
+<div align="center">
+Example mock images of spiral (left), elliptical (middle) and merging galaxies (right) after one (Y1) and ten (Y10) of LSST observations.
+</div>
 
 ### Plotting the latent data distribution
 We  explore  different  methods  to  visualize  how one-pixel attacks and observational noise from exposure time functioned to perturb a base galaxy image  in  the latent  space.  
 - Church window plots derive their name from a colorful representation of latent space around a given input example that resembles panes of stained glass. These colors map onto the potential classes available for classification. This provides information on how a given perturbation in latent space affects the classification of a particular example image.
 - Isomaps seek a lower-dimensional  embedding of the latent space of the network which maintains geodesic distances between points, thus more realistically showing distances present in theoriginal multi-dimensional space.
+- 
 ![](images/church_iso_neurips_new.png)
+<div align="center">
+Example church window plots (left) and isomaps (right) for model trained without (top) and with domain adaptation (bottom). 
+</div>
 
 ### Training
 Explanations of how to run different versions of training, evaluation as well as plotting of isomaps and church window plots are given in example notebook: 
