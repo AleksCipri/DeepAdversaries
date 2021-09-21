@@ -11,9 +11,9 @@ Our experiments were performed using a simple CNN architecture we call ConvNet, 
 ### Datasets
 We produce LSST mock data of galaxy morphology using simulated  data from the final two snapshots of Illustris TNG100, by adding noise and PSF using GalSim package. The images used can be found at [Zenodo](https://doi.org/10.5281/zenodo.5514180). 
 
-![](images/exaample_images.png)
+![](images/example_images.png)
 <div align="center">
-Example mock images of spiral (left), elliptical (middle) and merging galaxies (right) after one (Y1) and ten (Y10) of LSST observations.
+<sub>Example mock images of spiral (left), elliptical (middle) and merging galaxies (right) after one (Y1) and ten (Y10) of LSST observations.</sub>
 </div>
 
 ### Plotting the latent data distribution
@@ -23,7 +23,7 @@ We  explore  different  methods  to  visualize  how one-pixel attacks and observ
 - 
 ![](images/church_iso_neurips_new.png)
 <div align="center">
-Example church window plots (left) and isomaps (right) for model trained without (top) and with domain adaptation (bottom). 
+<sub>Example church window plots (left) and isomaps (right) for model trained without (top) and with domain adaptation (bottom). </sub>
 </div>
 
 ### Training
