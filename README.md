@@ -33,7 +33,7 @@ adversarial_studies.ipynb
 ```
 
 ### Requirements
-This code was developed using Pytorch xxx. The requirements.txt file lists all Python libraries that your notebooks will need, and they can be installed using:
+This code was developed using Pytorch 1.9.0+cu102. The requirements.txt file lists all Python libraries that your notebooks will need, and they can be installed using:
 ```
 pip install -r requirements.txt
 ```
