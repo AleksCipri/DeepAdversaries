@@ -78,9 +78,9 @@ class EndResNetFc(nn.Module):
         return y
 
 
-class DeepMergeV3(nn.Module):
+class ConvNet(nn.Module):
     def __init__(self, use_bottleneck=True, bottleneck_dim=256, new_cls=3, class_num=3):
-        super(DeepMergeV3, self).__init__()
+        super(ConvNet, self).__init__()
         self.class_num = class_num
         self.use_bottleneck = use_bottleneck
         self.new_cls = new_cls
@@ -112,9 +112,9 @@ class DeepMergeV3(nn.Module):
         y = self.fc(x)
         return x, y
 
-class EndDMV3(nn.Module):
+class EndCN(nn.Module):
     def __init__(self, use_bottleneck=True, bottleneck_dim=256, new_cls=3, class_num=3):
-        super(EndDMV3, self).__init__()
+        super(EndCN, self).__init__()
         self.class_num = class_num
         self.use_bottleneck = use_bottleneck
         self.new_cls = new_cls
