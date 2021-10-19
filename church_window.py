@@ -154,7 +154,7 @@ def church_window(use_gpu, base_network, embedding_network, image, noisy_image, 
             print("Didn't flip within chosen max iterations.")
 
 
-def cw_plotter(use_gpu, embedding_network, groundt_label, change_to, embedding1, noisy_embedding, perturbed_embedding):
+def cw_plotter(use_gpu, embedding_network, groundt_label, change_to, embedding1, noisy_embedding, perturbed_embedding, save, name):
     LABELS = ('spiral', 'elliptical', 'merger')
 
     if use_gpu:
@@ -176,8 +176,28 @@ def cw_plotter(use_gpu, embedding_network, groundt_label, change_to, embedding1,
 
     out=np.zeros([len(x),len(x),3],dtype=np.uint8)
 
-    adv_direction = torch.subtract(perturbed_embedding.detach(), embedding1.detach())
-    noisy_direction = torch.subtract(noisy_embedding.detach(), embedding1.detach())
+    adv_direction = torch.sub(perturbed_embedding.detach(), embedding1.detach()) #used to be torch.subtract but that is not ued any more
+    noisy_direction = torch.sub(noisy_embedding.detach(), embedding1.detach())
+    
+    # TEST #######
+    logits_img = embedding_network(embedding1.unsqueeze(0).to(device)).squeeze(0)
+    softmax_output_img = nn.Softmax(dim=1)(1.0*logits_img)
+    adv_out_img = torch.argmax(softmax_output_img)
+    #print(logits_img, softmax_output_img)
+    #print("Predicted for image by embedding net:", adv_out_img)
+    
+    logits_n = embedding_network(noisy_embedding.unsqueeze(0).to(device)).squeeze(0)
+    softmax_output_n = nn.Softmax(dim=1)(1.0*logits_n)
+    adv_out_n = torch.argmax(softmax_output_n)
+    #print(logits_n, softmax_output_n)
+    #print("Predicted for noisy by embedding net:", adv_out_n)
+    
+    logits_p = embedding_network(perturbed_embedding.unsqueeze(0).to(device)).squeeze(0)
+    softmax_output_p = nn.Softmax(dim=1)(1.0*logits_p)
+    adv_out_p = torch.argmax(softmax_output_p)
+    #print(logits_p, softmax_output_p)
+    #print("Predicted for perturbed by embedding net:", adv_out_p)
+    ##########
 
     #you'd use Gram Schmidt here if you wanted to
     # ort = np.asarray([np.asarray(adv_direction), np.asarray(noisy_direction)])
@@ -192,8 +212,8 @@ def cw_plotter(use_gpu, embedding_network, groundt_label, change_to, embedding1,
             update=y[a]*noisy_direction+x[b]*adv_direction
             update=update.to(device)
 
-            image_adv=embedding1+update
-            logits = embedding_network(image_adv.unsqueeze(0).to(device))
+            image_adv=embedding1.to(device)+update.to(device)
+            logits = embedding_network(image_adv.unsqueeze(0).to(device)).squeeze(0)
             softmax_output = nn.Softmax(dim=1)(1.0*logits)
             adv_out = torch.argmax(softmax_output)
             
@@ -208,14 +228,14 @@ def cw_plotter(use_gpu, embedding_network, groundt_label, change_to, embedding1,
         
         
     my_ax = np.arange(x0, x1+.01, .01)
-    fig = plt.figure(figsize=(8, 8))
+    fig = plt.figure(figsize=(10, 10))
     ax = plt.subplot(111)
 
     plt.axhline(y=len(my_ax)//2, color='k')
     plt.axvline(x=len(my_ax)//2, color='k')
     plt.imshow(out, origin = 'lower')
-    plt.xticks(np.arange(len(x)), [str(round(e, 2)) for e in my_ax])
-    plt.yticks(np.arange(len(y)), [str(round(e, 2)) for e in my_ax])
+    plt.xticks(np.arange(len(x)), [str(round(e, 2)) for e in my_ax],fontsize=20)
+    plt.yticks(np.arange(len(y)), [str(round(e, 2)) for e in my_ax],fontsize=20)
 
     for index, label in enumerate(ax.yaxis.get_ticklabels()):
         if index % 20 != 0:
@@ -225,14 +245,15 @@ def cw_plotter(use_gpu, embedding_network, groundt_label, change_to, embedding1,
         if index % 20 != 0:
           label.set_visible(False)
 
-    plt.xlabel('Adversarial Direction')
-    plt.ylabel('Noisy Direction')
-    plt.scatter([len(my_ax)//2], [len(my_ax)//2], color = 'k', edgecolors = 'k', s = 70)
-    plt.scatter([np.where((my_ax < 1.0100000e+00) & (my_ax > 1.0000000e+00))], [len(my_ax)//2], color = 'w', edgecolors = 'k', s = 70)
-    plt.scatter([len(my_ax)//2], [np.where((my_ax < 1.0100000e+00) & (my_ax > 1.0000000e+00))], color = 'c', edgecolors = 'k', s = 70)
+    plt.xlabel('Adversarial Direction',fontsize=25)
+    plt.ylabel('Noisy Direction',fontsize=25)
+    plt.scatter([len(my_ax)//2], [len(my_ax)//2], color = 'k', marker='X', edgecolors = 'k', s = 350)
+    plt.scatter([np.where((my_ax < 1.0100000e+00) & (my_ax > 1.0000000e+00))], [len(my_ax)//2], color = 'k', marker='^', edgecolors = 'k', s = 350)
+    plt.scatter([len(my_ax)//2], [np.where((my_ax < 1.0100000e+00) & (my_ax > 1.0000000e+00))], color = 'k', marker='*', edgecolors = 'k', s = 350)
 
-    plt.title(r'{} $\rightarrow$ {}'.format(LABELS[int(groundt_label)], LABELS[int(change_to)]))
-
+    plt.title(r'{} $\rightarrow$ {}'.format(LABELS[int(groundt_label)], LABELS[int(change_to)]),fontsize=25)
+    if save:
+        plt.savefig('images/'+str(name)+'.png')
 
 def dist_metric(reg_embed, noise_embed, pert_embed, pnorm = 2.0):
   dist_noise, dist_pert = [], []
