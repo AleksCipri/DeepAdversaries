@@ -43,4 +43,4 @@ pip install -r requirements.txt
 - Diana Kafkes
 
 ### References
-If you use this code, please cite our paper: [arXiv:xxxxx](https://arxiv.org/abs/xxxxxx)
+If you use this code, please cite our paper: [arXiv:2111.00961](https://ui.adsabs.harvard.edu/abs/2021arXiv211100961C/abstract)
