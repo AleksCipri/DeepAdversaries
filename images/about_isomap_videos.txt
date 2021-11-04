@@ -5,7 +5,7 @@ We include 4 videos of rotatin 3D isomaps:
 - ResNet18 with regular training
 - ResNet18 trained with domain adaptation
 
-All videos are made with smaller nuber of images (XXX images from Y10 and Y1 datasets) compared to Figure 4 in the main paper, due to memory constraints. 
+All videos are made with smaller nuber of images (50 images from Y10 and Y1 datasets) compared to Figure 4 in the main paper, due to memory constraints. 
 As in Figure 4, Y10 images are connected with orange plane, while Y1 are connected with blue plane. Y1 data points are shown as large filled circles,
 and Y1 as small fileld circles. Colors of the point shows the predicted class: spiral (orange), elliptical (violet), merger (blue).
 
