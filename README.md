@@ -21,7 +21,7 @@ We  explore  different  methods  to  visualize  how one-pixel attacks and observ
 - Church window plots derive their name from a colorful representation of latent space around a given input example that resembles panes of stained glass. These colors map onto the potential classes available for classification. This provides information on how a given perturbation in latent space affects the classification of a particular example image.
 - Isomaps seek a lower-dimensional  embedding of the latent space of the network which maintains geodesic distances between points, thus more realistically showing distances present in theoriginal multi-dimensional space.
 
-![](images/church_iso_neurips_new.png)
+![](images/church_iso_final.png)
 <div align="center">
 <sub>Example church window plots (left) and isomaps (right) for model trained without (top) and with domain adaptation (bottom). </sub>
 </div>
