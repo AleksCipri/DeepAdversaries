@@ -29,7 +29,7 @@ We  explore  different  methods  to  visualize  how one-pixel attacks and observ
 ### Training
 Explanations of how to run different versions of training, evaluation as well as plotting of isomaps and church window plots are given in this example notebook: 
 ```
-adversarial_studies.ipynb 
+adversarial_studies_clean.ipynb 
 ```
 
 ### Requirements
