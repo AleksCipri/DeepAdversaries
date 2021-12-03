@@ -268,9 +268,11 @@ def dist_metric(reg_embed, noise_embed, pert_embed, pnorm = 2.0):
 
   mean_noise = np.mean(dist_noise,dtype=np.float64)
   stdev_noise = np.std(dist_noise,dtype=np.float64)
+  stderr_noise = stdev_noise/sqrt(len(reg_embed))
   mean_pert = np.mean(dist_pert,dtype=np.float64)
   stdev_pert = np.std(dist_pert,dtype=np.float64)
-  print('Noisy mean and std:', mean_noise, stdev_noise)
-  print('Perturbed mean and std:', mean_pert, stdev_pert)
+  stderr_pert = stdev_pert/sqrt(len(reg_embed))
+  print('Noisy mean, std and std error:', mean_noise, stdev_noise, stderr_noise)
+  print('Perturbed mean, std and std error:', mean_pert, stdev_pert, stderr_pert)
 
   return mean_noise, stdev_noise, mean_pert, stdev_pert
